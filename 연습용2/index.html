@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./js/main.js">
+    </script>
+    <style>
+       *{margin: 0; padding: 0;}
+        ul,li{list-style: none;}
+        a{text-decoration: none;}
+        .container{width: 440px;
+                   margin-top: 50px;}
+        nav ul{margin: 16px 0 16px 0;
+             padding: 8px 0;
+            text-align: left;
+        font-weight: 400;
+    border-bottom: 1px solid #d4d4d4}
+        nav ul li{display: inline;}
+        nav ul li a{
+            margin-right: 0;
+            padding: 10px 20px 10px;
+            font-size: 0.87rem;
+            background-color: #f1f1f1;
+            color:#333;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            transition: all 0.4s;
+        }
+        nav ul li.on a{
+            background-color: #8ac007;
+            color: #fff;
+            border-color: #8ac007;
+        }    
+        .description{display: none;
+        margin: 30px 0;
+        padding: 30px 0;
+        font-size: 12px;
+        color: #333;
+        border-bottom: 4px solid #d4d4d4;}
+
+        .description.active{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#">html</a></li>
+                <li><a href="#">css</a></li>
+                <li><a href="#">javascript</a></li>
+                <li><a href="#">jquery</a></li>
+            </ul>
+        </nav>
+        <div class="description HTML">html</div>
+        <div class="description CSS">css</div>
+        <div class="description javascript">javascript</div>
+        <div class="description jquery">jquery</div>
+
+    </div>
+    <script>
+        window.addEventListener('load',function(){
+            let n=0;
+            const container=document.getElementsByClassName('container')[0]
+            console.log(container)
+            let nav
+            let inForArray=[];
+            console.log(inForArray,'어레이')
+
+            for(let i=0; i<container.children.length; i++){
+                if(container.children[i].tagName=='NAV'){
+                    nav=container.children[i]
+                }else{
+                    inForArray.push(container.children[i])
+                    //NAV외
+                    //나머지 애들은 inForArray 에 푸쉬함 
+                }
+            }
+            const navLi=nav.children[0].children;
+            //nav 자식요소 모두를 navLi 정의 
+            console.log(navLi)
+            
+            navLi[n].classList.add('on')
+            inForArray[n].classList.add('active')
+
+            for(i=0; i<navLi.length; i++){
+                    navLi[i].index=i;//navLi전체적인 인덱스 번호를 생성
+                    navLi[i].addEventListener('click',function(e){
+                        e.preventDefault()//a태그에대한 이벤트 제거
+                        n=e.currentTarget.index;//n= navLi리스트에서 클릭된 녀석에 
+                                                //인덱스
+                                                //1.클래스 추가를 위해 for문 한번 더 돌려줌 
+                                                //2.navLi에 대해 
+                                                //3.이때 돌면서 navLi에대해 0123 0123 0123 navLi.length만큼 길이만큼
+                                                //4.0123 이 됨 
+                                                //5.돌고있는것중에 0123중 클릭된 navLi[i]값과 같으면 addClass('on'),('active')
+                                                //6.돌고있는것중에 navLi[i]과 다른것들은 classList.remove('on'),('actives')
+                        for(let j=0; j<navLi.length; j++){
+                            if(j==n){
+                                navLi[j].classList.add('on')
+                                inForArray[j].classList.add('active')
+                            }else{
+                                navLi[j].classList.remove('on')
+                                inForArray[j].classList.remove('active')
+                            }
+                        }
+
+                        console.log(n,'n의값')
+
+                    })
+            }
+        })
+    </script>
+</body>
+</html>
